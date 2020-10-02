@@ -31,12 +31,10 @@ module ChurnZero
           end
         end
       rescue StandardError => e
-        byebug
         # handle connection related failures and raise gem specific standard error
         raise ChurnZero::Error::ConnectionError.new, 'Connection failed.'
       end
 
-      byebug
       # check the status code
       if response.status == 200
         Response.create(response.body)
@@ -55,7 +53,7 @@ module ChurnZero
     def format_options(options)
       return if options.blank?
 
-      options[:app_key] = api_key
+      options[:app_key] = app_key
       options.transform_keys! {|k| k.to_s.camelize(:lower)}
       options
     end

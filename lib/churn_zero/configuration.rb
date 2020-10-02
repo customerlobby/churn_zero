@@ -4,13 +4,13 @@ module ChurnZero
   module Configuration
 
     VALID_OPTIONS_KEYS = [
-        :api_key,
+        :app_key,
         :adapter,
         :endpoint
     ].freeze
 
-    # By default don't set the api key.
-    DEFAULT_API_KEY = nil
+    # By default don't set the app key.
+    DEFAULT_APP_KEY = nil
 
     # Use the default Faraday adapter.
     DEFAULT_ADAPTER = Faraday.default_adapter
@@ -41,7 +41,7 @@ module ChurnZero
 
     # Reset all configuration settings to default values.
     def reset
-      self.api_key     = DEFAULT_API_KEY
+      self.app_key     = DEFAULT_APP_KEY
       self.endpoint    = DEFAULT_ENDPOINT
       self.adapter     = DEFAULT_ADAPTER
     end
