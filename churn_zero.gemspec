@@ -5,7 +5,7 @@ require "churn_zero/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "churn_zero"
-  spec.version       = ChurnZero::VERSION
+  spec.version       = ChurnZero::Version
   spec.authors       = ["Tajinder Pal Singh"]
   spec.email         = ["tsingh@beesolvertechnology.com"]
 
