@@ -33,7 +33,6 @@ module ChurnZero
       def required_attributes
         %i[
           account_external_id
-          contact_external_id
           entity
           name
           value
