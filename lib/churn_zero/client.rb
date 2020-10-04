@@ -6,5 +6,6 @@ module ChurnZero
     Dir[File.expand_path('../client/*.rb', __FILE__)].each{|f| require f}
 
     include ChurnZero::Client::Attribute
+    include ChurnZero::Client::Event
   end
 end

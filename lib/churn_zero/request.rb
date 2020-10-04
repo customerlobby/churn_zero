@@ -26,8 +26,9 @@ module ChurnZero
             request.url('', formatted_options)
           when :post, :put
             request.headers['Content-Type'] = 'application/json'
-            request.body = options.to_json unless options.empty?
-            request.url(path)
+            params = options.map { |opt| format_options(opt) }
+            request.body = params.to_json unless params.empty?
+            request.url('')
           end
         end
       rescue StandardError => e

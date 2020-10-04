@@ -1,16 +1,12 @@
 # ChurnZero
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/churn_zero`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A Ruby wrapper for the Churn Zero HTTP API.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-```ruby
-gem 'churn_zero'
-```
+    gem 'churn_zero'
 
 And then execute:
 
@@ -22,22 +18,74 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Configuration
 
-## Development
+Before you can make calls to ChurnZero you must configure the library with a valid Application Key. You can create as
+many application keys from ChurnZero Admin section.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+There are two ways to configure the ChurnZero gem. You can pass a hash of configuration options when you create
+a client, or you can use a configure block.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+client = ChurnZero.client({app_key: "YOUR_KEY_HERE"})
+```
+
+```ruby
+ChurnZero.configure do |config|
+  config.app_key = "YOUR_KEY_HERE"
+end
+
+client = ChurnZero.client
+```
+
+### Resources
+
+There are currently three Churn Zero APIs implemented in this client; trackEvents, setAttribute and incrementAttribute.
+See the parameters section below for information about what kinds of parameters can be sent in each of them.
+
+Tracking Events(single event)
+
+```ruby
+params = { account_external_id: 2, contact_external_id: 1, event_name: 'Transaction Count', quantity: 25 }
+client.track(params)
+```
+
+To Track multiple events in a single API call:
+
+```ruby
+params = [{account_external_id: 2, contact_external_id: 1, event_name: 'Transaction Count', quantity: 25},
+          {account_external_id: 2, contact_external_id: 1, event_name: 'Non Zero Transaction Count', quantity: 5},
+          {account_external_id: 2, contact_external_id: 1, event_name: 'Prospects Transaction Count', quantity: 8}]
+client.track(params)
+```
+
+Setting Attribute(single attribute)
+
+```ruby
+params = { account_external_id: 2, contact_external_id: 1, entity: 'contact', name: 'attr_1', value: '23' }
+client.write(params)
+```
+
+To set multiple attributes in a single call:
+
+```ruby
+params = [{account_external_id: 2, contact_external_id: 1, entity: 'contact', name: 'attr_1', value: '23'},
+          {account_external_id: 2, contact_external_id: 1, entity: 'contact', name: 'attr_2', value: '24'},
+          {account_external_id: 2, contact_external_id: 1, entity: 'contact', name: 'attr_3', value: '25'}]
+client.write(params)
+```
+
+Increment Attribute:
+
+```ruby
+params = { account_external_id: 2, contact_external_id: 1, entity: 'contact', name: 'attr_1', value: '23' }
+client.increment(params)
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/churn_zero. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the ChurnZero project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/churn_zero/blob/master/CODE_OF_CONDUCT.md).
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request

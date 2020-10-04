@@ -5,11 +5,12 @@ require File.expand_path('../../churn_zero/errors/request_error', __dir__)
 module ChurnZero
   class Client
     module Attribute
+      # used to set attributes
+      def write(options)
+        return write_all(options) if options.is_a? Array
 
-      def write(options = {})
-        validate!(options)
         options.merge!(action: 'setAttribute')
-
+        validate!(options)
         get(options)
       end
 
@@ -18,6 +19,15 @@ module ChurnZero
         options.merge!(action: 'incrementAttribute')
 
         get(options)
+      end
+
+      def write_all(options)
+        options.each do |element|
+          element[:action] = 'setAttribute'
+          validate!(element)
+        end
+
+        post(options)
       end
 
       def validate!(options)
@@ -33,9 +43,9 @@ module ChurnZero
       def required_attributes
         %i[
           account_external_id
+          action
           entity
           name
-          value
         ]
       end
     end
