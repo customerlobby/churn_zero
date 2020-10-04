@@ -1,12 +1,11 @@
-# frozen_sring_literal: true
+# frozen_string_literal: true
 
 module ChurnZero
   module Configuration
-
-    VALID_OPTIONS_KEYS = [
-        :app_key,
-        :adapter,
-        :endpoint
+    VALID_OPTIONS_KEYS = %i[
+      app_key
+      adapter
+      endpoint
     ].freeze
 
     # By default don't set the app key.
@@ -16,7 +15,7 @@ module ChurnZero
     DEFAULT_ADAPTER = Faraday.default_adapter
 
     # By default use the main ChurnZero api URL.
-    DEFAULT_ENDPOINT = 'https://analytics.churnzero.net/i'.freeze
+    DEFAULT_ENDPOINT = 'https://analytics.churnzero.net/i'
 
     # By default request JSON data to be returned from the API.
     DEFAULT_FORMAT = :json

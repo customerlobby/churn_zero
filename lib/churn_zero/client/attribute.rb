@@ -9,14 +9,14 @@ module ChurnZero
       def write(options)
         return write_all(options) if options.is_a? Array
 
-        options.merge!(action: 'setAttribute')
+        options[:action] = 'setAttribute'
         validate!(options)
         get(options)
       end
 
       def increment(options = {})
         validate!(options)
-        options.merge!(action: 'incrementAttribute')
+        options[:action] = 'incrementAttribute'
 
         get(options)
       end

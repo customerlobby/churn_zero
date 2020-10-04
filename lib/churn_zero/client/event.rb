@@ -7,7 +7,7 @@ module ChurnZero
       def track(options)
         return track_all(options) if options.is_a? Array
 
-        options.merge!(action: 'trackEvent')
+        options[:action] = 'trackEvent'
         validate_track_attrs!(options)
         get(options)
       end

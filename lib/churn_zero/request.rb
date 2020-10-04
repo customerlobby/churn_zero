@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('errors/connection_error', __dir__)
 require File.expand_path('errors/authorization_error', __dir__)
 
@@ -55,7 +57,7 @@ module ChurnZero
       return if options.blank?
 
       options[:app_key] = app_key
-      options.transform_keys! {|k| k.to_s.camelize(:lower)}
+      options.transform_keys! { |k| k.to_s.camelize(:lower) }
       options
     end
   end
