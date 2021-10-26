@@ -57,7 +57,15 @@ module ChurnZero
       return if options.blank?
 
       options[:app_key] = app_key
-      options.transform_keys! { |k| k.to_s.camelize(:lower) }
+      options.transform_keys! do  |k|
+        if k.to_s == "account_external_id"
+          k = "accountExternalId"
+        elsif k.to_s == "contact_external_id"
+          k = "contactExternalId"
+        else
+          k.to_s.camelize(:lower)
+        end
+      end
       options
     end
   end
